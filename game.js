@@ -1,5 +1,5 @@
-const FLOOR_HEIGHT = 48;
-const JUMP_FORCE = 800;
+const FLOOR_HEIGHT = 60;
+const JUMP_FORCE = 830;
 const SPEED = 480;
 
 // initialize context
@@ -9,6 +9,8 @@ kaboom({
 
 // load assets
 loadSprite("bean", "sprites/bean.png");
+loadSprite("cactus", "sprites/cactus.png");
+loadSprite("sun", "sprites/sun_new.png");
 
 scene("start", () => {
     add([
@@ -49,6 +51,13 @@ scene("game", () => {
         color(184, 134, 11),
     ]);
 
+    add([
+        sprite("sun"),
+        pos(width() - 280, 15),
+        scale(0.25),
+        area(),
+    ])
+
     function jump() {
         if (player.isGrounded()) {
             player.jump(JUMP_FORCE);
@@ -63,18 +72,18 @@ scene("game", () => {
 
         // add tree obj
         add([
-            rect(48, rand(32, 96)),
+            sprite("cactus"),
+            scale(rand(0.08, 0.19)),
             area(),
             outline(4),
             pos(width(), height() - FLOOR_HEIGHT),
             origin("botleft"),
-            color(255, 180, 255),
             move(LEFT, SPEED),
             "tree",
         ]);
 
         // wait a random amount of time to spawn next tree
-        wait(rand(0.5, 1.5), spawnTree);
+        wait(rand(0.65, 1.3), spawnTree);
 
     }
 
